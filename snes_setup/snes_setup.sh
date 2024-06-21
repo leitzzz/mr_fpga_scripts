@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # ready to use on the Mister FPGA
-# go to the scripts menu and run this script
+# copy this file into "Scripts" folder
+# and later go to the scripts menu and run this script
 
 from datetime import datetime
 
