@@ -15,7 +15,7 @@ DIRECTORY_DESTINATION = "/media/fat/games/SNES"
 JSON_URL = "https://archive.org/metadata/snes-romset-ultra-us"
 
 
-def extract_zip(zip_file_path, extract_to_path):
+def extract_zip(zip_file_path: str, extract_to_path: str):
     """
     Extracts a ZIP file to a specified directory.
 
@@ -30,16 +30,6 @@ def extract_zip(zip_file_path, extract_to_path):
     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
         zip_ref.extractall(extract_to_path)
         print(f"Extracted {zip_file_path} to {extract_to_path}")
-
-
-def convert_size(size_bytes):
-    if size_bytes == 0:
-        return "0B"
-    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-    i = int(math.floor(math.log(size_bytes, 1024)))
-    p = math.pow(1024, i)
-    s = round(size_bytes / p, 2)
-    return f"{s} {size_name[i]}"
 
 
 def show_header_message():
@@ -61,23 +51,49 @@ def show_header_message():
     print("The main purpose of this script is to download the neccessary files to start to enjoy SNES on the Mister FPGA")
 
 
+def convert_size(size_bytes: int):
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return f"{s} {size_name[i]}"
+
+
+def get_total_files_size_to_download(files: list):
+    total_size = 0
+    for file in files:
+        # we will ensure that only zip files will be used to get the all the files size
+        if file['format'] == 'ZIP':
+            total_size += int(file['size'])
+
+    return total_size
+
+
 def process_downloads(json_url: str):
     """
     Process the downloads of the files
     """
 
-    # with open(f"{json_file_path}", 'r') as json_file:
+    if not os.path.exists(DIRECTORY_DESTINATION):
+        print(
+            f"Destination directory {DIRECTORY_DESTINATION} does not exist. Please create it and try again.")
+        return
+
+    print(f"Reading remote JSON: {json_url}")
+
     json_file = requests.get(
         json_url)
-    print(f"Reading remote JSON: {json_url}")
 
     json_file_raw_data = json_file.json()
 
     created_at_datetime = datetime.fromtimestamp(
         int(json_file_raw_data['created']))
 
-    print(f"Created at: {created_at_datetime}")
-    print(f"Total files to download: {len(json_file_raw_data['files'])}")
+    print(f"The source was created at: {created_at_datetime}")
+    print(
+        f"Total files to download: {len(json_file_raw_data['files'])} about {convert_size(get_total_files_size_to_download(json_file_raw_data['files']))}")
     print("==========================================================================")
 
     server_url = json_file_raw_data['alternate_locations']['workable'][0]['server']
@@ -104,7 +120,7 @@ def process_downloads(json_url: str):
             file_path, DIRECTORY_DESTINATION)
         os.remove(file_path)
 
-        # TODO: comment this line to download all files
+        # Just download 5 files to test
         # if downloaded_files_count == 5:
         #     break
         downloaded_files_count += 1
