@@ -69,7 +69,8 @@ def process_downloads():
     """
 
     # download the most recent core for the NeoGeo on Mister FPGA
-    print(f"Im gonna download a very important Mister Core file for the NeoGeo: {CURRENT_MISTER_FPGA_RBF_CORE_URL.split("/")[-1]}")
+    print(
+        f"Im gonna download a very important Mister Core file for the NeoGeo: {CURRENT_MISTER_FPGA_RBF_CORE_URL.split('/')[-1]}")
     download_file(CURRENT_MISTER_FPGA_RBF_CORE_URL,
                   f'{CORE_DIRECTORY_DESTINATION}{CURRENT_MISTER_FPGA_RBF_CORE_URL.split("/")[-1]}', True)
 
