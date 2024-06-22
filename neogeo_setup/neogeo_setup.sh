@@ -1,4 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+# ready to use on the Mister FPGA
+# copy this file into "Scripts" folder
+# and later go to the scripts menu and run this script
 
 """
 Before you start to cry reading this long script, the main purpose is keep all the necessary in one file, to avoid having more unnecessary files in the Mister FPGA "Scripts" folder, thats why is this so long. Sorry for that!

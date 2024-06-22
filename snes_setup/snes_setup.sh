@@ -10,7 +10,7 @@ import os
 import math
 import requests  # pylint: disable=import-error
 
-DIRECTORY_DESTINATION = "/media/fat/games/SNES"
+DIRECTORY_DESTINATION = "/media/fat/games/SNES/"
 
 JSON_URL = "https://archive.org/metadata/snes-romset-ultra-us"
 
@@ -23,13 +23,17 @@ def extract_zip(zip_file_path: str, extract_to_path: str):
     - zip_file_path: str, the path to the ZIP file.
     - extract_to_path: str, the directory to extract the files into.
     """
-    # Ensure the extraction path exists
+    # Ensure the extraction path exists, if not create it
     if not os.path.exists(extract_to_path):
         os.makedirs(extract_to_path)
 
-    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-        zip_ref.extractall(extract_to_path)
-        print(f"Extracted {zip_file_path} to {extract_to_path}")
+    try:
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_to_path)
+            print(f"Extracted {zip_file_path} to {extract_to_path}")
+    except zipfile.BadZipfile:
+        print(
+            f"An error occurred while extracting {zip_file_path} to {extract_to_path}")
 
 
 def show_header_message():
@@ -38,14 +42,12 @@ def show_header_message():
     """
 
     print("""
-    _____      _               _ _   _
-    |  ___|    (_)             (_) | | |
-    | |__ _ __  _  ___  _   _   _| |_| |
-    |  __| '_ \| |/ _ \| | | | | | __| |
-    | |__| | | | | (_) | |_| | | | |_|_|
-    \____/_| |_| |\___/ \__, | |_|\__(_)
-            _/ |       __/ |
-            |__/       |___/
+            _____ _   _  _____ _____  ______                      _ 
+        /  ___| \ | ||  ___/  ___| | ___ \                    | |
+        \ `--.|  \| || |__ \ `--.  | |_/ /____      _____ _ __| |
+        `--. \ . ` ||  __| `--. \ |  __/ _ \ \ /\ / / _ \ '__| |
+        /\__/ / |\  || |___/\__/ / | | | (_) \ V  V /  __/ |  |_|
+        \____/\_| \_/\____/\____/  \_|  \___/ \_/\_/ \___|_|  (_)
     """)
 
     print("The main purpose of this script is to download the neccessary files to start to enjoy SNES on the Mister FPGA")
@@ -115,7 +117,7 @@ def process_downloads(json_url: str):
         with open(file_path, 'wb') as downloaded_rom_file:
             downloaded_rom_file.write(response.content)
 
-        print("Extracting smc file...")
+        print("Extracting file...")
         extract_zip(
             file_path, DIRECTORY_DESTINATION)
         os.remove(file_path)
