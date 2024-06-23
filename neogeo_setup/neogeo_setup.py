@@ -8,7 +8,7 @@ import urllib.parse
 import requests  # pylint: disable=import-error
 
 # here goes the rbf core file
-CORE_DIRECTORY_DESTINATION = "/_Console/"
+CORE_DIRECTORY_DESTINATION = "/media/fat/_Console/"
 # CORE_DIRECTORY_DESTINATION = "./"
 
 # in this directory goes .neo (in subfolder NEOGEO yes! again) and .rom .sfix .sp1 .uni .xml files
@@ -88,8 +88,6 @@ def process_downloads():
             print(
                 f"Hey! i will start with: {parsed_filename_from_original_url.split('.')[0]}")
             final_file_name = f'{DIRECTORY_DESTINATION}NEOGEO/{parsed_filename_from_original_url}'
-
-            continue
         else:
             final_file_name = f'{DIRECTORY_DESTINATION}{parsed_filename_from_original_url}'
 
