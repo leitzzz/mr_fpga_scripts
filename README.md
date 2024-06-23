@@ -4,7 +4,9 @@ This repo is intended to make easy start to use the Mister FPGA, and get the nec
 
 I assume that you have an active internet connection to this scripts download all the required files to start to play with the Mister FPGA.
 
-The way that you can use this is, for example go to the folder snes_setup/ and copy this file to your "Scripts" folder and later with the micro SD inserted in the Mister FPGA, run the script "snes_setup.sh" and will start to download from internet all the neccessary files.
+In the folder releases are the current versions that i have released, check for example the folder "releases/1.0.0/" an inside of this folder you will find the files neccessary to copy into "Scripts" folder of the SD card in the Mister FPGA.
+
+Later with the Micro SD inserted in the Mister FPGA, go to the "Scripts" menu on the Mister FPGA and run for example "snes_setup" and will start to download the requirred files to let you start to play SNES games; the same applies with the other Script files.
 
 ![Alt text](https://reactiongifs.me/wp-content/uploads/2013/08/shia-labeouf-magic-gif.gif "a title")
 
