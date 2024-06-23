@@ -10,7 +10,7 @@ import os
 import math
 import requests  # pylint: disable=import-error
 
-DIRECTORY_DESTINATION = "/media/fat/games/Megadrive/"
+DIRECTORY_DESTINATION = "/media/fat/games/MegaDrive/"
 # DIRECTORY_DESTINATION = "./"
 
 JSON_URL = "https://archive.org/metadata/sega-genesis-romset-ultra-usa"

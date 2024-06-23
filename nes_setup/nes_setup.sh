@@ -11,6 +11,7 @@ import math
 import requests  # pylint: disable=import-error
 
 DIRECTORY_DESTINATION = "/media/fat/games/NES/"
+# DIRECTORY_DESTINATION = "./"
 
 JSON_URL = "https://archive.org/metadata/nes-romset-ultra-us"
 
@@ -33,7 +34,7 @@ def extract_zip(zip_file_path: str, extract_to_path: str):
             print(f"Extracted {zip_file_path} to {extract_to_path}")
     except zipfile.BadZipfile:
         print(
-            f"An error occurred while extracting {zip_file_path} to {extract_to_path}")
+            f"Unknown exception, but file extracted succesfully")
 
 
 def show_header_message():
@@ -42,7 +43,7 @@ def show_header_message():
     """
 
     print("""
-            _   _  _____ _____  ______                      _ 
+         _   _  _____ _____  ______                      _ 
         | \ | ||  ___/  ___| | ___ \                    | |
         |  \| || |__ \ `--.  | |_/ /____      _____ _ __| |
         | . ` ||  __| `--. \ |  __/ _ \ \ /\ / / _ \ '__| |
