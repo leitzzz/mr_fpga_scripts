@@ -9,7 +9,12 @@ import requests  # pylint: disable=import-error
 
 DIRECTORY_DESTINATION = "/media/fat/games/SNES/"
 
+# main url to download the r.o.m.s
 JSON_URL = "https://archive.org/metadata/snes-romset-ultra-us"
+
+# specific country region url r.o.m.s
+SPECIFIC_COUNTRY_FILE_URLS = [
+    "https://archive.org/download/rr-nintendo-snes/europe/spain/nintendo-snes-spain.zip",]
 
 
 def extract_zip(zip_file_path: str, extract_to_path: str):
@@ -70,6 +75,30 @@ def get_total_files_size_to_download(files: list):
     return total_size
 
 
+def download_specific_region_files(region_url: str):
+    """
+    Download specific region files
+    """
+
+    spain_file_response = requests.get(
+        region_url)
+
+    # specific country download folder
+    specific_country_folder = f"{DIRECTORY_DESTINATION}{region_url.split('/')[-1].split('.')[0]}"
+    if not os.path.exists(specific_country_folder):
+        os.makedirs(specific_country_folder)
+
+    with open(f"{specific_country_folder}/{region_url.split('/')[-1]}", 'wb') as spain_file:
+        spain_file.write(spain_file_response.content)
+
+    extract_zip(
+        f"{specific_country_folder}/{region_url.split('/')[-1]}", f"{specific_country_folder}/")
+    os.remove(f"{specific_country_folder}/{region_url.split('/')[-1]}")
+
+    print("==========================================================================")
+    print(f"Downloaded specific region files.")
+
+
 def process_downloads(json_url: str):
     """
     Process the downloads of the files
@@ -120,12 +149,18 @@ def process_downloads(json_url: str):
         os.remove(file_path)
 
         # Just download 5 files to test
-        # if downloaded_files_count == 5:
-        #     break
+        if downloaded_files_count == 1:
+            break
+
         downloaded_files_count += 1
 
+    # downloading specific region files
+
+    for specific_country_file_url in SPECIFIC_COUNTRY_FILE_URLS:
+        download_specific_region_files(specific_country_file_url)
+
     print("==========================================================================")
-    print(f"Downloaded {downloaded_files_count} files. Enjoy!")
+    print(f"All files downloaded, Enjoy!")
 
 
 def main():
