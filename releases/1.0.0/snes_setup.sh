@@ -152,8 +152,8 @@ def process_downloads(json_url: str):
         os.remove(file_path)
 
         # Just download 5 files to test
-        if downloaded_files_count == 1:
-            break
+        # if downloaded_files_count == 5:
+        #     break
 
         downloaded_files_count += 1
 
