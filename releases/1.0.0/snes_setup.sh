@@ -17,7 +17,8 @@ JSON_URL = "https://archive.org/metadata/snes-romset-ultra-us"
 
 # specific country region url r.o.m.s
 SPECIFIC_COUNTRY_FILE_URLS = [
-    "https://archive.org/download/rr-nintendo-snes/europe/spain/nintendo-snes-spain.zip",]
+    # "https://archive.org/download/rr-nintendo-snes/europe/spain/nintendo-snes-spain.zip",
+]
 
 
 def extract_zip(zip_file_path: str, extract_to_path: str):
